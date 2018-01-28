@@ -1,3 +1,5 @@
+import sun.awt.image.ImageWatched;
+
 /**
  * Created by anshul on 04/12/17.
  */
@@ -36,11 +38,21 @@ public class LinkedList {
         }
     }
 
+    LinkedList(){}
+
+    LinkedList(Node n){
+        this.head = n;
+    }
+
     public void push(int new_data) {
         Node temp_node = new Node(new_data);
 
         temp_node.setNextNode(head);
         head = temp_node;
+    }
+
+    Node getHead(){
+        return this.head;
     }
 
     public void append(int new_data) {
@@ -133,13 +145,74 @@ public class LinkedList {
         return;
     }
 
+    public void getNthFromLast(int n){
+        Node firstPtr = head;
+        Node secondPtr = head;
+        int count = 0;
+
+        while(count < n){
+            firstPtr = firstPtr.getNextNode();
+            count = count + 1;
+        }
+
+        while(firstPtr.getNextNode() != null){
+            firstPtr = firstPtr.getNextNode();
+            secondPtr = secondPtr.getNextNode();
+        }
+
+        System.out.println(n + "th element frm last: " + secondPtr.getData());
+    }
+
+    private Node addTwoListUtil(Node first, Node second){
+        Node res = null;
+        Node prev = null;
+        Node temp = null;
+        int carry = 0, sum;
+
+        while(first != null || second != null){
+            sum = carry + (first != null ? first.data : 0) + (second != null ? second.data : 0);
+            carry = (sum >= 10 ? 1 : 0);
+            sum = sum % 10;
+            temp = new Node(sum);
+
+            if(res == null)
+                res = temp;
+            else
+                prev.setNextNode(temp);
+            prev = temp;
+
+            if (first != null)
+                first = first.getNextNode();
+            if (second != null)
+                second = second.getNextNode();
+        }
+
+        if(carry > 0)
+            temp.setNextNode(new Node(carry));
+        return res;
+    }
+
+    public LinkedList addTwoList(LinkedList l1, LinkedList l2){
+        Node temp = addTwoListUtil(l1.getHead(), l2.getHead());
+        return new LinkedList(temp);
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
+        LinkedList list1 = new LinkedList();
+        LinkedList l3 = new LinkedList();
 
-        for(int i = 0; i < 9; i++)
-            list.append(i);
+        /*for(int i = 0; i < 9; i++)
+            list.push(i);*/
+        list.push(7);
+        list.push(5);
+        list.push(9);
+        list.push(4);
+        list.push(6);
 
-        list.print_list();
+        list1.push(8);
+        list1.push(4);
+
         System.out.println("\n");
 
         //System.out.println("Length of list: "+ list.get_length());
@@ -147,7 +220,12 @@ public class LinkedList {
         /*list.swapNodes(2, 8);
         list.print_list();*/
 
-        list.getMiddleElement();
+        // list.getMiddleElement();
+
+        // list.getNthFromLast(2);
+
+        l3.addTwoList(list, list1).print_list();
+
     }
 }
     
