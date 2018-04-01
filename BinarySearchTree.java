@@ -1,3 +1,6 @@
+import java.util.*;
+import java.util.LinkedList;
+
 /**
  * Created by anshul on 01/04/18.
  */
@@ -106,6 +109,22 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+    public void levelorder() {
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+
+        while(!queue.isEmpty()) {
+            TreeNode tempNode = queue.poll();
+            System.out.print(tempNode.getData() + " ");
+
+            if(tempNode.getLeftChild() != null)
+                queue.add(tempNode.getLeftChild());
+            if(tempNode.getRightChild() != null)
+                queue.add(tempNode.getRightChild());
+        }
+        System.out.println();
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -125,5 +144,8 @@ public class BinarySearchTree {
 
         System.out.print("Postorder: ");
         bst.preorder();
+
+        System.out.print("Levelorder: ");
+        bst.levelorder();
     }
 }
