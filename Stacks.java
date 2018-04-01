@@ -157,9 +157,68 @@ public class Stacks {
             System.out.println("[" + i.getStart() + ", " + i.getEnd() + "]");
     }
 
+    public int largestRectangleUnderHistogram(int hist[]) {
+        Stack<Integer> s = new Stack<>();
+        int max_area = 0;
+        int tp;
+        int area_with_top, i = 0;
+
+        while(i < hist.length) {
+            if(s.isEmpty() || hist[s.peek()] <= hist[i])
+                s.push(i++);
+            else {
+                tp = s.peek();
+                s.pop();
+                area_with_top = hist[tp] * (s.empty() ? i : i - s.peek() - 1);
+
+                if(max_area < area_with_top)
+                    max_area = area_with_top;
+            }
+        }
+
+        while(!s.isEmpty()) {
+            tp = s.peek();
+            s.pop();
+            area_with_top = hist[tp] * (s.empty() ? i : i - s.peek() - 1);
+
+            if (max_area < area_with_top)
+                max_area = area_with_top;
+
+        }
+
+        return max_area;
+    }
+
+    public int longestValidParentheses(String str) {
+        int n = str.length();
+
+        Stack<Integer> s = new Stack<>();
+        s.push(-1);
+
+        int result = 0;
+
+        for(int i = 0; i < n; i++) {
+
+            if(str.charAt(i) == '(')
+                s.push(i);
+            else {
+                s.pop();
+
+                if(!s.isEmpty())
+                    result = Math.max(result, i - s.peek());
+                else
+                    s.push(i);
+
+            }
+        }
+
+        return result;
+    }
+
     public static void main(String []args) {
         int price[] = {10, 4, 5, 90, 120, 80};
         char exp[] = {'{','(',')','}','[',']'};
+        int hist[] = { 6, 2, 5, 4, 5, 1, 6 };
         int S[] = new int[price.length];
         Stacks s = new Stacks();
 
@@ -171,7 +230,14 @@ public class Stacks {
         else
             System.out.println("Not Balanced");*/
 
-        //s.NextGreaterElement(price);
-        s.mergeOverLappingIntervals();
+        // s.NextGreaterElement(price);
+        // s.mergeOverLappingIntervals();
+        // System.out.println(s.largestRectangleUnderHistogram(hist));
+
+        /*String str = "((()()";
+        System.out.println(s.longestValidParentheses(str));
+
+        str = "()(()))))";
+        System.out.println(s.longestValidParentheses(str));*/
     }
 }
