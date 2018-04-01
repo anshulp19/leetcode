@@ -67,6 +67,19 @@ public class BinarySearchTree {
         root = insertRec(root, val);
     }
 
+    private void preorderUtil(TreeNode root) {
+        if(root != null) {
+            System.out.print(root.getData() + " ");
+            preorderUtil(root.getLeftChild());
+            preorderUtil(root.getRightChild());
+        }
+    }
+
+    public void preorder() {
+        preorderUtil(root);
+        System.out.println();
+    }
+
     private void inorderUtil(TreeNode root) {
         if(root != null) {
             inorderUtil(root.getLeftChild());
@@ -77,6 +90,19 @@ public class BinarySearchTree {
 
     public void inorder() {
         inorderUtil(root);
+        System.out.println();
+    }
+
+    private void postorderUtil(TreeNode root) {
+        if(root != null) {
+            postorderUtil(root.getLeftChild());
+            postorderUtil(root.getRightChild());
+            System.out.print(root.getData() + " ");
+        }
+    }
+
+    public void postorder() {
+        postorderUtil(root);
         System.out.println();
     }
 
@@ -91,7 +117,13 @@ public class BinarySearchTree {
         bst.insert(60);
         bst.insert(80);
 
+        System.out.print("Inorder: ");
         bst.inorder();
 
+        System.out.print("Preorder: ");
+        bst.preorder();
+
+        System.out.print("Postorder: ");
+        bst.preorder();
     }
 }
