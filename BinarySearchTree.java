@@ -187,6 +187,21 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+    private int height_util(TreeNode node) {
+        if(node == null)
+            return 0;
+        else {
+            int lHeight = height_util(node.getLeftChild());
+            int rHeight = height_util(node.getRightChild());
+
+            return (lHeight > rHeight) ? lHeight + 1 : rHeight + 1;
+        }
+    }
+
+    public int height() {
+        return height_util(root);
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -213,6 +228,8 @@ public class BinarySearchTree {
         bst.levelorder();
 
        System.out.print("Morris traversal inorder: ");
-       bst.MorrisTraversal_Inorder(); */
+       bst.MorrisTraversal_Inorder();
+
+       System.out.println("Height: " + bst.height()); */
     }
 }
