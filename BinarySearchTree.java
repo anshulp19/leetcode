@@ -125,6 +125,34 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+    public void inorderWithoutRecur() {
+        if(root == null)
+            return;
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+
+        while(node != null) {
+            stack.push(node);
+            node = node.getLeftChild();
+        }
+
+        while(stack.size() > 0) {
+            node = stack.pop();
+            System.out.print(node.getData() + " ");
+
+            if(node.getRightChild() != null) {
+                node = node.getRightChild();
+
+                while(node != null) {
+                    stack.push(node);
+                    node = node.getLeftChild();
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -138,6 +166,8 @@ public class BinarySearchTree {
 
         System.out.print("Inorder: ");
         bst.inorder();
+        System.out.print("Inorder without recursion: ");
+        bst.inorderWithoutRecur();
 
         System.out.print("Preorder: ");
         bst.preorder();
