@@ -202,6 +202,24 @@ public class BinarySearchTree {
         return height_util(root);
     }
 
+    private void printGivenLevelNode(TreeNode node, int level) {
+        if(node == null)
+            return;
+        if(level == 1)
+            System.out.print(node.getData() + " ");
+        else if(level > 1) {
+            printGivenLevelNode(node.getLeftChild(), level - 1);
+            printGivenLevelNode(node.getRightChild(), level - 1);
+        }
+    }
+
+    public void reverseLevelOrder() {
+        int h = height();
+        for(int i = h; i > 0; i--) {
+            printGivenLevelNode(root, i);
+        }
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -230,6 +248,9 @@ public class BinarySearchTree {
        System.out.print("Morris traversal inorder: ");
        bst.MorrisTraversal_Inorder();
 
-       System.out.println("Height: " + bst.height()); */
+       System.out.println("Height: " + bst.height());
+
+       System.out.print("Reverse level order: ");
+       bst.reverseLevelOrder(); */
     }
 }
