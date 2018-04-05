@@ -153,6 +153,40 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+    private void MorrisTraversal_InorderUtil(TreeNode node) {
+        TreeNode current, prev;
+
+        if(node == null)
+            return;
+
+        current = node;
+        while(current != null) {
+            if(current.getLeftChild() == null) {
+                System.out.print(current.getData() + " ");
+                current = current.getRightChild();
+            } else {
+                prev = current.getLeftChild();
+
+                while(prev.getRightChild() != null && prev.getRightChild() != current)
+                    prev = prev.getRightChild();
+
+                if(prev.getRightChild() == null) {
+                    prev.setRightChild(current);
+                    current = current.getLeftChild();
+                } else {
+                    prev.setRightChild(null);
+                    System.out.print(current.getData() + " ");
+                    current = current.getRightChild();
+                }
+            }
+        }
+    }
+
+    public void MorrisTraversal_Inorder() {
+        MorrisTraversal_InorderUtil(root);
+        System.out.println();
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -164,7 +198,7 @@ public class BinarySearchTree {
         bst.insert(60);
         bst.insert(80);
 
-        System.out.print("Inorder: ");
+       /* System.out.print("Inorder: ");
         bst.inorder();
         System.out.print("Inorder without recursion: ");
         bst.inorderWithoutRecur();
@@ -177,5 +211,8 @@ public class BinarySearchTree {
 
         System.out.print("Levelorder: ");
         bst.levelorder();
+
+       System.out.print("Morris traversal inorder: ");
+       bst.MorrisTraversal_Inorder(); */
     }
 }
