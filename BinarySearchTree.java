@@ -53,6 +53,10 @@ public class BinarySearchTree {
         root = null;
     }
 
+    private TreeNode getRoot() {
+        return this.root;
+    }
+
     private TreeNode insertRec(TreeNode root, int val) {
         if(root == null) {
             root = new TreeNode(val);
@@ -273,16 +277,72 @@ public class BinarySearchTree {
             System.out.println(entry.getValue());
     }
 
+    private void printLeftBoundary(TreeNode node) {
+        if (node != null) {
+            if (node.getLeftChild() != null) {
+
+                System.out.print(node.getData() + " ");
+                printLeftBoundary(node.getLeftChild());
+
+            } else if(node.getRightChild() != null) {
+
+                System.out.print(node.getData() + " ");
+                printLeftBoundary(node.getRightChild());
+            }
+        }
+    }
+
+    private void printLeaves(TreeNode node) {
+        if(node != null) {
+            printLeaves(node.getLeftChild());
+
+            if(node.getLeftChild() == null && node.getRightChild() == null)
+                System.out.print(node.getData() + " ");
+
+            printLeaves(node.getRightChild());
+        }
+    }
+
+    private void printRightBoundary(TreeNode node) {
+        if (node != null) {
+            if (node.getRightChild() != null) {
+
+                printRightBoundary(node.getRightChild());
+                System.out.print(node.getData() + " ");
+
+            } else if(node.getLeftChild() != null) {
+
+                printRightBoundary(node.getLeftChild());
+                System.out.print(node.getData() + " ");
+            }
+        }
+    }
+
+    public void printBoundary() {
+        if (root != null) {
+            System.out.print("Boundary nodes: " + root.getData() + " ");
+
+            printLeftBoundary(root.getLeftChild());
+
+            printLeaves(root.getLeftChild());
+            printLeaves(root.getRightChild());
+
+            printRightBoundary(root.getRightChild());
+        }
+        System.out.println();
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
-        bst.insert(50);
-        bst.insert(30);
         bst.insert(20);
-        bst.insert(40);
-        bst.insert(70);
-        bst.insert(60);
-        bst.insert(80);
+        bst.insert(8);
+        bst.insert(4);
+        bst.insert(12);
+        bst.insert(10);
+        bst.insert(14);
+        bst.insert(22);
+        bst.insert(25);
 
        /* System.out.print("Inorder: ");
         bst.inorder();
@@ -310,6 +370,17 @@ public class BinarySearchTree {
        bst.diagonalPrint();
 
        System.out.println("Vertical Order:");
-       bst.verticalOrder(); */
+       bst.verticalOrder();
+
+       bst.printBoundary();
+       System.out.print("Left boundary: ");
+       bst.printLeftBoundary(bst.getRoot());
+       System.out.println();
+       System.out.print("Right boundary: ");
+       bst.printRightBoundary(bst.getRoot());
+       System.out.println();
+       System.out.print("Leaf bodes: ");
+       bst.printLeaves(bst.getRoot());
+       System.out.println(); */
     }
 }
