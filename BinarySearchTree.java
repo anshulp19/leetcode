@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 
 /**
  * Created by anshul on 01/04/18.
@@ -220,6 +221,31 @@ public class BinarySearchTree {
         }
     }
 
+    private void diagonalPrintUtil( TreeNode node, int d, HashMap<Integer, Vector<Integer>> dPrint) {
+        if(node == null)
+            return;
+
+        Vector<Integer> k = dPrint.get(d);
+
+        if(k == null) {
+            k = new Vector<>();
+            k.add(node.getData());
+        } else
+            k.add(node.getData());
+
+        dPrint.put(d, k);
+        diagonalPrintUtil(node.getLeftChild(), d + 1, dPrint);
+        diagonalPrintUtil(node.getRightChild(), d, dPrint);
+    }
+
+    public void diagonalPrint() {
+        HashMap<Integer, Vector<Integer>> dPrint = new HashMap<>();
+        diagonalPrintUtil(root, 0, dPrint);
+
+        for(Entry<Integer, Vector<Integer>> entry: dPrint.entrySet())
+            System.out.print(entry.getValue());
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -251,6 +277,9 @@ public class BinarySearchTree {
        System.out.println("Height: " + bst.height());
 
        System.out.print("Reverse level order: ");
-       bst.reverseLevelOrder(); */
+       bst.reverseLevelOrder();
+
+       System.out.print("Diagonal print: ");
+       bst.diagonalPrint(); */
     }
 }
