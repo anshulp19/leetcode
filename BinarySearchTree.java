@@ -246,6 +246,33 @@ public class BinarySearchTree {
             System.out.print(entry.getValue());
     }
 
+    private void getVerticalOrder(TreeNode node, int hd, TreeMap<Integer, Vector<Integer>> m) {
+        if(node == null)
+            return;
+
+        Vector<Integer> temp = m.get(hd);
+        if(temp == null) {
+            temp = new Vector<>();
+            temp.add(node.getData());
+        } else
+            temp.add(node.getData());
+
+        m.put(hd, temp);
+
+        getVerticalOrder(node.getLeftChild(), hd - 1, m);
+
+        getVerticalOrder(node.getRightChild(), hd + 1, m);
+    }
+
+    public void verticalOrder() {
+        TreeMap<Integer, Vector<Integer>> m = new TreeMap<>();
+        int hd = 0;
+        getVerticalOrder(root, hd, m);
+
+        for(Entry<Integer, Vector<Integer>> entry: m.entrySet())
+            System.out.println(entry.getValue());
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -280,6 +307,9 @@ public class BinarySearchTree {
        bst.reverseLevelOrder();
 
        System.out.print("Diagonal print: ");
-       bst.diagonalPrint(); */
+       bst.diagonalPrint();
+
+       System.out.println("Vertical Order:");
+       bst.verticalOrder(); */
     }
 }
