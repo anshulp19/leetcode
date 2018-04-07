@@ -131,31 +131,27 @@ public class BinarySearchTree {
     }
 
     public void inorderWithoutRecur() {
+        ArrayList<Integer> lst = new ArrayList<>();
+
         if(root == null)
             return;
 
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode node = root;
+        TreeNode p = root;
 
-        while(node != null) {
-            stack.push(node);
-            node = node.getLeftChild();
-        }
-
-        while(stack.size() > 0) {
-            node = stack.pop();
-            System.out.print(node.getData() + " ");
-
-            if(node.getRightChild() != null) {
-                node = node.getRightChild();
-
-                while(node != null) {
-                    stack.push(node);
-                    node = node.getLeftChild();
-                }
+        while(!stack.empty() || p!= null) {
+            if(p != null) {
+                stack.push(p);
+                p = p.getLeftChild();
+            } else {
+                TreeNode t = stack.pop();
+                lst.add(t.getData());
+                p = t.getRightChild();
             }
         }
-        System.out.println();
+        for(int i: lst) {
+            System.out.print(i + " ");
+        }
     }
 
     private void MorrisTraversal_InorderUtil(TreeNode node) {
@@ -344,7 +340,7 @@ public class BinarySearchTree {
         bst.insert(22);
         bst.insert(25);
 
-       /* System.out.print("Inorder: ");
+        /*System.out.print("Inorder: ");
         bst.inorder();
         System.out.print("Inorder without recursion: ");
         bst.inorderWithoutRecur();
