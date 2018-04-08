@@ -400,6 +400,24 @@ public class BinarySearchTree {
         return KthSmallestElementUtil(this.getRoot(), k);
     }
 
+    private boolean isValidBSTUtil(TreeNode node, int low, int high) {
+        if(node.getData() <= low || node.getData() >= high)
+            return false;
+        if(node.getLeftChild() != null && isValidBSTUtil(node.getLeftChild(), low, node.getData()) != false)
+            return false;
+        if(node.getRightChild() != null && isValidBSTUtil(node.getRightChild(), node.getData(), high) != false)
+            return false;
+
+        return true;
+    }
+
+    public boolean isValidBST() {
+        if(this.getRoot() == null)
+            return true;
+
+        return isValidBSTUtil(this.getRoot(), Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -451,6 +469,8 @@ public class BinarySearchTree {
 
         for(int i = 0; i < 8; i++) {
             System.out.println(i + 1 + "th smallest element is: " + bst.KthSmallestElement(i + 1));
-        }*/
+        }
+
+        System.out.println("Is the given BST valid: " + bst.isValidBST()); */
     }
 }
