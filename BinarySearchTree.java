@@ -347,6 +347,59 @@ public class BinarySearchTree {
         }
     }
 
+    private int longestConsecutiveSequenceUtil(TreeNode node, TreeNode prevNode, int depth) {
+        if(node == null)
+            return 0;
+
+        int currentDepth = 0;
+        if(prevNode != null && prevNode.getData() + 1 == node.getData())
+            currentDepth = depth + 1;
+        else
+            currentDepth = 1;
+
+        return Math.max(currentDepth, Math.max(longestConsecutiveSequenceUtil(node.getLeftChild(), node, currentDepth),
+                longestConsecutiveSequenceUtil(node.getRightChild(), node, currentDepth)));
+    }
+
+    public int longestConsecutiveSequence() {
+        if(this.getRoot() == null)
+            return 0;
+
+
+        return longestConsecutiveSequenceUtil(this.getRoot(), null, 0);
+
+    }
+
+    private int KthSmallestElementUtil(TreeNode node, int k) {
+        if(node == null || k < 1)
+            return -1;
+
+        Stack<TreeNode> stack  = new Stack<>();
+        stack.push(node);
+
+        while(stack.empty() == false) {
+            while(node != null && node.getLeftChild() != null) {
+                stack.push(node.getLeftChild());
+                node = node.getLeftChild();
+            }
+
+            node = stack.pop();
+            k--;
+            if(k == 0)
+                return node.getData();
+
+            node = node.getRightChild();
+            if(node != null)
+                stack.push(node);
+        }
+
+        return -1;
+    }
+
+    public int KthSmallestElement(int k) {
+        return KthSmallestElementUtil(this.getRoot(), k);
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -373,25 +426,31 @@ public class BinarySearchTree {
         System.out.print("Levelorder: ");
         bst.levelorder();
 
-       System.out.print("Morris traversal inorder: ");
-       bst.MorrisTraversal_Inorder();
+        System.out.print("Morris traversal inorder: ");
+        bst.MorrisTraversal_Inorder();
 
-       System.out.println("Height: " + bst.height());
+        System.out.println("Height: " + bst.height());
 
-       System.out.print("Reverse level order: ");
-       bst.reverseLevelOrder();
+        System.out.print("Reverse level order: ");
+        bst.reverseLevelOrder();
 
-       System.out.print("Diagonal print: ");
-       bst.diagonalPrint();
+        System.out.print("Diagonal print: ");
+        bst.diagonalPrint();
 
-       System.out.println("Vertical Order:");
-       bst.verticalOrder();
+        System.out.println("Vertical Order:");
+        bst.verticalOrder();
 
-       bst.printBoundary();
-       System.out.println();
+        bst.printBoundary();
+        System.out.println();
 
-       System.out.print("Inverted Tree: ");
-       bst.InvertTree();
-       bst.inorder(); */
+        System.out.print("Inverted Tree: ");
+        bst.InvertTree();
+        bst.inorder();
+
+        System.out.println("Longest consecutive sequence: " + bst.longestConsecutiveSequence());
+
+        for(int i = 0; i < 8; i++) {
+            System.out.println(i + 1 + "th smallest element is: " + bst.KthSmallestElement(i + 1));
+        }*/
     }
 }
