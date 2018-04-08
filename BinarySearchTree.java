@@ -328,6 +328,25 @@ public class BinarySearchTree {
         System.out.println();
     }
 
+    private TreeNode InvertTreeUtil(TreeNode node) {
+        if(node == null)
+            return node;
+
+        TreeNode right = InvertTreeUtil(node.getRightChild());
+        TreeNode left = InvertTreeUtil(node.getLeftChild());
+
+        node.setLeftChild(right);
+        node.setRightChild(left);
+
+        return node;
+    }
+
+    public void InvertTree() {
+        if(root != null) {
+            root = InvertTreeUtil(root);
+        }
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -369,14 +388,10 @@ public class BinarySearchTree {
        bst.verticalOrder();
 
        bst.printBoundary();
-       System.out.print("Left boundary: ");
-       bst.printLeftBoundary(bst.getRoot());
        System.out.println();
-       System.out.print("Right boundary: ");
-       bst.printRightBoundary(bst.getRoot());
-       System.out.println();
-       System.out.print("Leaf bodes: ");
-       bst.printLeaves(bst.getRoot());
-       System.out.println(); */
+
+       System.out.print("Inverted Tree: ");
+       bst.InvertTree();
+       bst.inorder(); */
     }
 }
