@@ -418,6 +418,20 @@ public class BinarySearchTree {
         return isValidBSTUtil(this.getRoot(), Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    private boolean hasPathSum(TreeNode node, int sum) {
+        if(node == null)
+            return false;
+        if(node.getData() == sum && (node.getLeftChild() == null && node.getRightChild() == null))
+            return true;
+
+        return hasPathSum(node.getLeftChild(), sum - node.getData()) || hasPathSum(node.getRightChild(),
+                sum - node.getData());
+    }
+
+    public boolean hasPathSum(int sum) {
+        return hasPathSum(this.getRoot(), sum);
+    }
+
     public static void main(String args[]) {
         BinarySearchTree bst = new BinarySearchTree();
 
@@ -471,6 +485,8 @@ public class BinarySearchTree {
             System.out.println(i + 1 + "th smallest element is: " + bst.KthSmallestElement(i + 1));
         }
 
-        System.out.println("Is the given BST valid: " + bst.isValidBST()); */
+        System.out.println("Is the given BST valid: " + bst.isValidBST());
+
+        System.out.println("Is 54 in the path: " + bst.hasPathSum(54)); */
     }
 }
