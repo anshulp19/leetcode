@@ -85,6 +85,26 @@ public class Arrays {
         }
     }
 
+    public int sortedRotatedMin(int []arr, int low, int high) {
+        if(high < low)
+            return arr[0];
+
+        if(high == low)
+            return arr[low];
+
+        int mid = low + (high - low) / 2;
+
+        if(mid < high && arr[mid + 1] < arr[mid])
+            return arr[mid + 1];
+
+        if(mid > low && arr[mid - 1] > arr[mid])
+            return arr[mid];
+
+        if(arr[high] > arr[mid])
+            return sortedRotatedMin(arr, low, mid - 1);
+        return sortedRotatedMin(arr, mid + 1, high);
+    }
+
     public static void main(String[] args) {
         Arrays a = new Arrays();
         int[] array = new int[]{ 1,2,3,4,5,6,7,8,9,10 };
@@ -93,5 +113,6 @@ public class Arrays {
         // a.rotateArray(array, 2);
         // a.printArray(array);
         // a.searchRotated(arr, 2);
+        // System.out.println(a.sortedRotatedMin(arr, 0, arr.length - 1));
     }
 }
