@@ -103,14 +103,34 @@ public class Arrays {
         return sortedRotatedMin(arr, mid + 1, high);
     }
 
+    // Find the element before which all the elements are smaller than it, and after which all are greater
+    public int findTheElement(int []arr) {
+        int leftMax[] = new int[arr.length];
+        leftMax[0] = Integer.MIN_VALUE;
+
+        for(int i = 1; i < arr.length; i++)
+            leftMax[i] = Math.max(leftMax[i - 1], arr[i - 1]);
+
+        int rightMin = Integer.MAX_VALUE;
+
+        for(int i = arr.length - 1; i >= 0; i--) {
+            if(leftMax[i] < arr[i] && rightMin > arr[i])
+                return i;
+            rightMin = Math.min(rightMin, arr[i]);
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         Arrays a = new Arrays();
         int[] array = new int[]{ 1,2,3,4,5,6,7,8,9,10 };
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+        int arr1[] = {5, 1, 4, 3, 6, 8, 10, 7, 9};
 
         // a.rotateArray(array, 2);
         // a.printArray(array);
         // a.searchRotated(arr, 2);
         // System.out.println(a.sortedRotatedMin(arr, 0, arr.length - 1));
+        //System.out.println(a.findTheElement(arr1));
     }
 }
