@@ -121,16 +121,37 @@ public class Arrays {
         return -1;
     }
 
+    // Find maximum value of Sum( i*arr[i]) with only rotations on given array allowed
+    public int findMaxSumOnRotattion(int []arr) {
+        int arrSum = 0;
+        int currSum = 0;
+
+        for(int i = 0; i < arr.length; i++) {
+            arrSum += arr[i];
+            currSum += i * arr[i];
+        }
+
+        int maxSum  = currSum;
+        for(int i = 1; i < arr.length; i++) {
+            currSum = currSum + arrSum - (arr.length) * arr[arr.length - i];
+            maxSum = Math.max(currSum, maxSum);
+        }
+
+        return maxSum;
+    }
+
     public static void main(String[] args) {
         Arrays a = new Arrays();
         int[] array = new int[]{ 1,2,3,4,5,6,7,8,9,10 };
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
         int arr1[] = {5, 1, 4, 3, 6, 8, 10, 7, 9};
+        int arr2[] = {10, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         // a.rotateArray(array, 2);
         // a.printArray(array);
         // a.searchRotated(arr, 2);
         // System.out.println(a.sortedRotatedMin(arr, 0, arr.length - 1));
-        //System.out.println(a.findTheElement(arr1));
+        // System.out.println(a.findTheElement(arr1));
+        // System.out.println(a.findMaxSumOnRotattion(arr2));
     }
 }
