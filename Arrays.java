@@ -201,9 +201,7 @@ public class Array {
             j++;
         }
 
-        for(int i : arr)
-            System.out.print(i + " ");
-        System.out.println();
+        printArray(arr);
     }
 
     public static void main(String[] args) {
