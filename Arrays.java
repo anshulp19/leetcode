@@ -240,6 +240,22 @@ public class Array {
         printArray(arr);
     }
 
+    public void MoveZeroesToEnd(int arr[]) {
+        int count = 0;
+        int temp;
+
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] != 0) {
+                temp = arr[i];
+                arr[i] = arr[count];
+                arr[count] = temp;
+                count++;
+            }
+        }
+
+        printArray(arr);
+    }
+
     public static void main(String[] args) {
         Array a = new Array();
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
@@ -253,7 +269,8 @@ public class Array {
         /* System.out.println(a.IsArrayConsecutive(new int[]{4, 5, 6, 7, 8, 9, 1, 2, 3}));
            System.out.println(a.IsArrayConsecutive(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9})); */
         // a.RearrangeArray(new int[]{1, 2, 3, 4, 5, 6, 7, 8});
-        // a.RearrangePositiveNegative(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
+        // a.RearrangePositiveNegative(new int[]{1, 2, 3, -4, -1, 4});
         // a.PlaceNegativeBeforePositive(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
+        // a.MoveZeroesToEnd(new int[]{0, 1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9});
     }
 }
