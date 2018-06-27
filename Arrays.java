@@ -227,6 +227,19 @@ public class Array {
         printArray(arr);
     }
 
+    public void PlaceNegativeBeforePositive(int arr[]) {
+        int i = -1, temp = 0;
+        for(int j = 0; j < arr.length; j++) {
+            if(arr[j] < 0) {
+                i++;
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        printArray(arr);
+    }
+
     public static void main(String[] args) {
         Array a = new Array();
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
@@ -241,5 +254,6 @@ public class Array {
            System.out.println(a.IsArrayConsecutive(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9})); */
         // a.RearrangeArray(new int[]{1, 2, 3, 4, 5, 6, 7, 8});
         // a.RearrangePositiveNegative(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
+        // a.PlaceNegativeBeforePositive(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
     }
 }
