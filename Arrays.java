@@ -1,7 +1,9 @@
 /**
  * Created by anshul on 24/06/18.
  */
-public class Arrays {
+import java.util.*;
+
+public class Array {
 
     private void reverse(int []arr, int start, int end) {
         if (end <= start || arr.length <= 1) {
@@ -176,20 +178,46 @@ public class Arrays {
         return false;
     }
 
-    public static void main(String[] args) {
-        Arrays a = new Arrays();
-        int[] array = new int[]{ 1,2,3,4,5,6,7,8,9,10 };
-        int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
-        int arr1[] = {5, 1, 4, 3, 6, 8, 10, 7, 9};
-        int arr2[] = {10, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    // arrange the array such that elements at even positions are greater than all elements before it
+    // and elements at odd positions are less than all elements before it.
+    public void RearrangeArray(int arr[]) {
+        int even = arr.length / 2;
+        int odd = arr.length - even;
 
-        // a.rotateArray(array, 2);
-        // a.printArray(array);
-        // a.searchRotated(arr, 2);
+        int temp[] = new int[arr.length];
+        for(int i = 0; i < arr.length; i++)
+            temp[i] = arr[i];
+        Arrays.sort(temp);
+
+        int j = odd - 1;
+        for(int i = 0; i < arr.length; i += 2) {
+            arr[i] = temp[j];
+            j--;
+        }
+
+        j = odd;
+        for(int i = 1; i < arr.length; i += 2) {
+            arr[i] = temp[j];
+            j++;
+        }
+
+        for(int i : arr)
+            System.out.print(i + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Array a = new Array();
+        int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+
+        // a.rotateArray(new int[]{ 1,2,3,4,5,6,7,8,9,10 }, 2);
+        // a.printArray(new int[]{ 1,2,3,4,5,6,7,8,9,10 });
+        // a.searchRotated(new int[]{4, 5, 6, 7, 8, 9, 1, 2, 3}, 2);
         // System.out.println(a.sortedRotatedMin(arr, 0, arr.length - 1));
-        // System.out.println(a.findTheElement(arr1));
-        // System.out.println(a.findMaxSumOnRotattion(arr2));
-        /*System.out.println(a.IsArrayConsecutive(arr));
-        System.out.println(a.IsArrayConsecutive(arr1));*/
+        // System.out.println(a.findTheElement(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9}));
+        // System.out.println(a.findMaxSumOnRotattion(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9}));
+        /* System.out.println(a.IsArrayConsecutive(new int[]{4, 5, 6, 7, 8, 9, 1, 2, 3}));
+           System.out.println(a.IsArrayConsecutive(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9})); */
+        // a.RearrangeArray(new int[]{1, 2, 3, 4, 5, 6, 7, 8});
     }
 }
