@@ -140,6 +140,42 @@ public class Arrays {
         return maxSum;
     }
 
+    public int getMin(int arr[]) {
+        int min = arr[0];
+        for(int i = 1;  i< arr.length; i++) {
+            min = Math.min(arr[i], min);
+        }
+
+        return min;
+    }
+
+    public int getMax(int arr[]) {
+        int max = arr[0];
+        for(int i = 1;  i< arr.length; i++) {
+            max = Math.max(arr[i], max);
+        }
+
+        return max;
+    }
+
+    public boolean IsArrayConsecutive(int []arr) {
+        if(arr.length < 1)
+            return false;
+        int min = getMin(arr);
+        int max = getMax(arr);
+
+        if(max - min + 1 == arr.length) {
+            boolean visited[] = new boolean[arr.length];
+            for(int i = 0; i < arr.length; i++) {
+                if(visited[arr[i] - min] != false)
+                    return false;
+                visited[arr[i] - min] = true;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Arrays a = new Arrays();
         int[] array = new int[]{ 1,2,3,4,5,6,7,8,9,10 };
@@ -153,5 +189,7 @@ public class Arrays {
         // System.out.println(a.sortedRotatedMin(arr, 0, arr.length - 1));
         // System.out.println(a.findTheElement(arr1));
         // System.out.println(a.findMaxSumOnRotattion(arr2));
+        /*System.out.println(a.IsArrayConsecutive(arr));
+        System.out.println(a.IsArrayConsecutive(arr1));*/
     }
 }
