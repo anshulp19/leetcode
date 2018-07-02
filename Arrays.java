@@ -256,6 +256,29 @@ public class Array {
         printArray(arr);
     }
 
+    public void SmallestLargest(int []arr) {
+        int n = arr.length;
+        Arrays.sort(arr);
+
+        int ArrIndex = 0;
+        int []tempArr = new int[n];
+
+        for(int i = 0, j = n - 1; i <= n/2 || j > n/2; i++, j--) {
+            if(ArrIndex < n) {
+                tempArr[ArrIndex] = arr[i];
+                ArrIndex++;
+            }
+            if(ArrIndex < n) {
+                tempArr[ArrIndex] = arr[j];
+                ArrIndex++;
+            }
+        }
+        for(int i = 0; i < n; i++)
+            arr[i] = tempArr[i];
+
+        printArray(arr);
+    }
+
     public static void main(String[] args) {
         Array a = new Array();
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
@@ -272,5 +295,6 @@ public class Array {
         // a.RearrangePositiveNegative(new int[]{1, 2, 3, -4, -1, 4});
         // a.PlaceNegativeBeforePositive(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
         // a.MoveZeroesToEnd(new int[]{0, 1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9});
+        // a.SmallestLargest(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9});
     }
 }
