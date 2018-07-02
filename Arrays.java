@@ -279,6 +279,28 @@ public class Array {
         printArray(arr);
     }
 
+    public void DoubleFirstRepeatingNumber(int []arr) {
+        for(int i = 0; i < arr.length - 1; i++) {
+            if(arr[i] == arr[i + 1]) {
+                arr[i] = 2 * arr[i];
+                arr[i + 1] = 0;
+            }
+        }
+
+        System.out.println();
+        int count = 0;
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[count];
+                arr[count] = temp;
+                count++;
+            }
+        }
+
+        printArray(arr);
+    }
+
     public static void main(String[] args) {
         Array a = new Array();
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
@@ -296,5 +318,6 @@ public class Array {
         // a.PlaceNegativeBeforePositive(new int[]{-1, 2, -3, 4, 5, 6, -7, 8, 9});
         // a.MoveZeroesToEnd(new int[]{0, 1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9});
         // a.SmallestLargest(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9});
+        // a.DoubleFirstRepeatingNumber(new int[]{ 0, 2, 2, 2, 0, 6, 6, 0, 0, 8 });
     }
 }
