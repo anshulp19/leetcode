@@ -82,4 +82,27 @@ public class Heap {
             index = getParentIndex(index);
         }
     }
+
+    public int getKthMin(int k) {
+        int item;
+
+        for(int i = 0; i < k - 1; i++)
+            item = poll();
+
+        item = poll();
+
+        return item;
+    }
+
+    public static void main(String[] args) {
+        Heap heap = new Heap();
+
+        heap.add(12);
+        heap.add(3);
+        heap.add(5);
+        heap.add(7);
+        heap.add(19);
+
+        // System.out.println("2nd smallest element is: " + heap.getKthMin(2));
+    }
 }
