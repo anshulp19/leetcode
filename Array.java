@@ -1,6 +1,8 @@
 /**
  * Created by anshul on 24/06/18.
  */
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.util.*;
 
 public class Array {
@@ -301,6 +303,80 @@ public class Array {
         printArray(arr);
     }
 
+    public void LargestNumber(int []arr){
+        String []tempArr = new String[arr.length];
+
+        for(int i = 0; i < arr.length; i++)
+            tempArr[i] = String.valueOf(arr[i]);
+
+        Arrays.sort(tempArr, new Comparator<String>() {
+            @Override
+            public int compare(String x, String y) {
+                String xy = x + y;
+                String yx = y + x;
+
+                return  xy.compareTo(yx) > 0 ? -1: 1;
+            }
+        });
+
+        System.out.print("Input: ");
+        for(Integer elem: arr)
+            System.out.print(elem);
+        System.out.println();
+        System.out.print("Largest Number: ");
+        for(String elem: tempArr)
+            System.out.print(elem);
+        System.out.println();
+    }
+
+    public void NextLargestNumber(int []arr){
+        int i;
+        for(i = arr.length - 1; i > 0; i--) {
+            if(arr[i] > arr[i - 1])
+                break;
+        }
+        if(i == 0){
+            System.out.println("Not Possible");
+            return;
+        }
+        int x = arr[i - 1], min = i;
+        for (int j = i + 1; j < arr.length; j++) {
+            if(arr[j] > x && arr[j] < arr[min])
+                min = j;
+        }
+        int temp = arr[i - 1];
+        arr[i - 1] = arr[min];
+        arr[min] = temp;
+
+        Arrays.sort(arr, i, arr.length);
+
+        System.out.print("Next greatest number: ");
+        printArray(arr);
+    }
+
+    public int waterInHistogram(int []arr) {
+        int n = arr.length, result = 0;
+        int low_max = 0, high_max = 0;
+        int low = 0, high = n - 1;
+
+        while (low <= high) {
+            if (arr[low] < arr[high]) {
+                if (arr[low] > low_max)
+                    low_max = arr[low];
+                else
+                    result += low_max - arr[low];
+                low++;
+            } else {
+                if (arr[high] > high_max)
+                    high_max = arr[high];
+                else
+                    result += high_max - arr[high];
+                high--;
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Array a = new Array();
         int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
@@ -319,5 +395,8 @@ public class Array {
         // a.MoveZeroesToEnd(new int[]{0, 1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9});
         // a.SmallestLargest(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9});
         // a.DoubleFirstRepeatingNumber(new int[]{ 0, 2, 2, 2, 0, 6, 6, 0, 0, 8 });
+        // a.LargestNumber(new int[]{5, 1, 4, 3, 6, 8, 10, 7, 9});
+        // a.NextLargestNumber(new int[]{1, 3, 4, 5, 2});
+        // System.out.println(a.waterInHistogram(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
     }
 }
