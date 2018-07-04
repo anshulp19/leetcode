@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Created by anshul on 03/07/18.
@@ -94,6 +96,60 @@ public class Heap {
         return item;
     }
 
+    public static void addNumber(int number, PriorityQueue<Integer> lower, PriorityQueue<Integer> higher) {
+        if (lower.size() == 0 || number < lower.peek()) {
+            lower.add(number);
+        } else {
+            higher.add(number);
+        }
+    }
+
+    public static void rebalance(PriorityQueue<Integer> lower, PriorityQueue<Integer> higher) {
+        PriorityQueue<Integer> biggerHeap = lower.size() > higher.size() ? lower : higher;
+        PriorityQueue<Integer> smallerHeap = lower.size() > higher.size() ? higher : lower;
+
+        if (biggerHeap.size() - smallerHeap.size() > 1) {
+            smallerHeap.add(biggerHeap.poll());
+        }
+    }
+
+    public static double getMedian(PriorityQueue<Integer> lower, PriorityQueue<Integer> higher) {
+        PriorityQueue<Integer> biggerHeap = lower.size() > higher.size() ? lower : higher;
+        PriorityQueue<Integer> smallerHeap = lower.size() > higher.size() ? higher : lower;
+
+        if (biggerHeap.size() == smallerHeap.size()) {
+            return ((double)biggerHeap.peek() + smallerHeap.peek()) / 2;
+        } else {
+            return biggerHeap.peek();
+        }
+    }
+
+    public static void getMedians(int []arr) {
+        //max heap for numbers to the left side of median
+        PriorityQueue<Integer> lowers = new PriorityQueue<Integer>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer a, Integer b) {
+                return -1 * a.compareTo(b);
+            }
+        });
+        // max heap for numbers to the right side of median
+        PriorityQueue<Integer> highers = new PriorityQueue<Integer>();
+        double[] medians = new double[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            int number = arr[i];
+            addNumber(number, lowers, highers);
+            rebalance(lowers, highers);
+            medians[i] = getMedian(lowers, highers);
+        }
+
+        for (Double elem : medians) {
+            System.out.print(elem + " ");
+        }
+        System.out.println();
+    }
+
+
     public static void main(String[] args) {
         Heap heap = new Heap();
 
@@ -104,5 +160,6 @@ public class Heap {
         heap.add(19);
 
         // System.out.println("2nd smallest element is: " + heap.getKthMin(2));
+        // getMedians(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
     }
 }
