@@ -1,5 +1,7 @@
 /**
  * Created by anshul on 14/08/18.
+ *
+ * https://leetcode.com/problems/maximum-average-subarray-i/description/
  */
 public class MaximumAverageSubarray {
     public double findMaxAverage(int[] nums, int k) {
